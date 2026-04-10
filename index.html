@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Aanya 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --rose: #e8a0b0;
+    --blush: #f7dde5;
+    --deep: #8b3a52;
+    --gold: #d4a853;
+    --cream: #fdf6f0;
+    --text: #3a2030;
+    --muted: #9a6878;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ── Floating petals ── */
+  .petals { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+  .petal {
+    position: absolute;
+    top: -60px;
+    font-size: 18px;
+    opacity: 0;
+    animation: fall linear infinite;
+  }
+  @keyframes fall {
+    0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0; }
+    10%  { opacity: 0.7; }
+    90%  { opacity: 0.5; }
+    100% { transform: translateY(110vh) rotate(720deg) translateX(60px); opacity: 0; }
+  }
+
+  /* ── Hero ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 2rem;
+    position: relative;
+    z-index: 1;
+    background: radial-gradient(ellipse at 50% 0%, #fce4ec 0%, var(--cream) 70%);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e8a0b0' fill-opacity='0.07'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    opacity: 1;
+    z-index: -1;
+  }
+
+  .label {
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.3s forwards;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(4rem, 14vw, 9rem);
+    font-weight: 700;
+    color: var(--deep);
+    line-height: 1;
+    opacity: 0;
+    animation: fadeUp 1s 0.6s forwards;
+    position: relative;
+  }
+
+  .hero-name span {
+    color: var(--rose);
+    font-style: italic;
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.3rem);
+    color: var(--muted);
+    margin-top: 1.5rem;
+    max-width: 480px;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 1s 1s forwards;
+  }
+
+  .scroll-hint {
+    margin-top: 3.5rem;
+    opacity: 0;
+    animation: fadeUp 1s 1.5s forwards;
+    color: var(--rose);
+    font-size: 1.6rem;
+    animation-name: fadeUp, bob;
+    animation-duration: 1s, 2s;
+    animation-delay: 1.5s, 2.5s;
+    animation-fill-mode: forwards, none;
+    animation-iteration-count: 1, infinite;
+  }
+
+  @keyframes bob {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(8px); }
+  }
+
+  /* ── Sections ── */
+  section {
+    position: relative;
+    z-index: 1;
+    padding: 6rem 2rem;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .divider {
+    text-align: center;
+    font-size: 1.5rem;
+    letter-spacing: 0.3em;
+    color: var(--rose);
+    margin: 0 auto;
+    opacity: 0.5;
+  }
+
+  /* ── Cards ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .card {
+    background: white;
+    border: 1px solid #f0d0d8;
+    border-radius: 1.2rem;
+    padding: 2rem 1.5rem;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  .card.visible {
+    animation: fadeUp 0.7s forwards;
+  }
+
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(232,160,176,0.25);
+  }
+
+  .card-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--deep);
+    margin-bottom: 0.6rem;
+  }
+  .card-body { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+
+  /* ── Quote ── */
+  .quote-block {
+    text-align: center;
+    padding: 5rem 2rem;
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, #fce4ec 0%, var(--cream) 100%);
+  }
+
+  .quote-mark {
+    font-family: 'Playfair Display', serif;
+    font-size: 8rem;
+    color: var(--rose);
+    opacity: 0.3;
+    line-height: 0.5;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .quote-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.3rem, 3.5vw, 2rem);
+    font-style: italic;
+    color: var(--deep);
+    max-width: 680px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .quote-author {
+    margin-top: 1.5rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── Section heading ── */
+  .sec-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    color: var(--deep);
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .sec-sub {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* ── Promise section ── */
+  .promise-list {
+    list-style: none;
+    margin-top: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .promise-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    background: white;
+    border-left: 3px solid var(--rose);
+    padding: 1.2rem 1.5rem;
+    border-radius: 0 1rem 1rem 0;
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: transform 0.4s, opacity 0.4s;
+  }
+
+  .promise-list li.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .promise-icon { font-size: 1.4rem; flex-shrink: 0; }
+  .promise-text { font-size: 0.95rem; color: var(--text); line-height: 1.6; }
+  .promise-text strong { color: var(--deep); font-weight: 400; font-family: 'Playfair Display', serif; font-style: italic; }
+
+  /* ── Footer ── */
+  footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    position: relative;
+    z-index: 1;
+    background: var(--deep);
+    color: var(--blush);
+  }
+
+  footer .big {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 6vw, 4rem);
+    font-style: italic;
+    margin-bottom: 1rem;
+    color: white;
+  }
+
+  footer p {
+    font-size: 0.9rem;
+    opacity: 0.6;
+    letter-spacing: 0.1em;
+  }
+
+  .heart-pulse {
+    display: inline-block;
+    animation: pulse 1.2s ease infinite;
+    color: var(--rose);
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.35); }
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Stars / sparkles ── */
+  .sparkle {
+    position: absolute;
+    pointer-events: none;
+    font-size: 0.9rem;
+    animation: twinkle 3s ease infinite;
+    color: var(--gold);
+  }
+
+  @keyframes twinkle {
+    0%, 100% { opacity: 0; transform: scale(0.5); }
+    50%       { opacity: 1; transform: scale(1.2); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating petals -->
+<div class="petals" id="petals"></div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="label">A little something, just for you</div>
+  <h1 class="hero-name">Dear <span>Aanya</span></h1>
+  <p class="hero-sub">Some feelings are too big for a text message. So I made you a whole page. 🌸</p>
+  <div class="scroll-hint">↓</div>
+
+  <!-- sparkles -->
+  <span class="sparkle" style="top:12%; left:8%; animation-delay:0s;">✦</span>
+  <span class="sparkle" style="top:25%; right:10%; animation-delay:1s;">✦</span>
+  <span class="sparkle" style="bottom:20%; left:15%; animation-delay:0.5s;">✦</span>
+  <span class="sparkle" style="bottom:30%; right:8%; animation-delay:1.5s;">✦</span>
+</div>
+
+<!-- WHAT MAKES YOU SPECIAL -->
+<section>
+  <p class="sec-sub">Things I know for certain</p>
+  <h2 class="sec-heading">Why you're special to me</h2>
+
+  <div class="cards" id="cards">
+    <div class="card">
+      <div class="card-icon">🌟</div>
+      <div class="card-title">You light up every room</div>
+      <div class="card-body">Your energy is contagious. Wherever you go, things just feel a little brighter and a little more fun.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🫂</div>
+      <div class="card-title">You actually listen</div>
+      <div class="card-body">When I talk to you, I feel genuinely heard. That's rarer than you know, and it means everything.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">💬</div>
+      <div class="card-title">The best conversations</div>
+      <div class="card-body">From total nonsense to the deepest thoughts — our conversations are always my favourite part of the day.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🌸</div>
+      <div class="card-title">Kindness as a superpower</div>
+      <div class="card-body">You're genuinely kind — not performatively, just naturally. It's one of the most beautiful things about you.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔥</div>
+      <div class="card-title">Your strength amazes me</div>
+      <div class="card-body">You handle things with grace that would shake most people. You're stronger than you probably realise.</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">😂</div>
+      <div class="card-title">You make me laugh</div>
+      <div class="card-body">Genuinely, properly laugh. The kind that makes your stomach hurt. That's a rare gift.</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider">· · ✦ · ·</div>
+
+<!-- QUOTE -->
+<div class="quote-block">
+  <span class="quote-mark">"</span>
+  <p class="quote-text">A good friend is like a four-leaf clover — hard to find and lucky to have.</p>
+  <p class="quote-author">— Irish Proverb</p>
+</div>
+
+<div class="divider">· · ✦ · ·</div>
+
+<!-- PROMISES -->
+<section>
+  <p class="sec-sub">From me to you</p>
+  <h2 class="sec-heading">My promises as your friend</h2>
+
+  <ul class="promise-list" id="promises">
+    <li>
+      <span class="promise-icon">🤝</span>
+      <span class="promise-text"><strong>I'll always show up.</strong> Not just when it's easy — when it matters. In the good moments and the hard ones.</span>
+    </li>
+    <li>
+      <span class="promise-icon">🤫</span>
+      <span class="promise-text"><strong>Your secrets are safe with me.</strong> Always. No exceptions.</span>
+    </li>
+    <li>
+      <span class="promise-icon">📣</span>
+      <span class="promise-text"><strong>I'll always be in your corner.</strong> Your biggest cheerleader, always rooting for you.</span>
+    </li>
+    <li>
+      <span class="promise-icon">🧁</span>
+      <span class="promise-text"><strong>I'll celebrate your wins like they're mine.</strong> Because honestly, they feel like mine too.</span>
+    </li>
+    <li>
+      <span class="promise-icon">🌧️</span>
+      <span class="promise-text"><strong>I'll sit with you in the hard moments.</strong> No fixing, no rushing — just being there.</span>
+    </li>
+    <li>
+      <span class="promise-icon">♾️</span>
+      <span class="promise-text"><strong>Friends forever.</strong> That's not a phrase — it's a commitment.</span>
+    </li>
+  </ul>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="big">Forever your friend <span class="heart-pulse">♥</span></div>
+  <p>Made with love, just for Aanya 🌸</p>
+</footer>
+
+<script>
+  // ── Falling petals ──
+  const petalEmojis = ['🌸','🌺','✿','❀','🌷'];
+  const container = document.getElementById('petals');
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    p.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+    p.style.left = Math.random() * 100 + 'vw';
+    p.style.fontSize = (12 + Math.random() * 14) + 'px';
+    p.style.animationDuration = (7 + Math.random() * 8) + 's';
+    p.style.animationDelay = (Math.random() * 10) + 's';
+    p.style.opacity = 0;
+    container.appendChild(p);
+  }
+
+  // ── Scroll reveal ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.card').forEach((el, i) => {
+    el.style.animationDelay = (i * 0.12) + 's';
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('.promise-list li').forEach((el, i) => {
+    el.style.transitionDelay = (i * 0.1) + 's';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
